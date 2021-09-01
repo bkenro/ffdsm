@@ -1,6 +1,6 @@
 # ffdsm
 
-*ffdsm* は、[Drupal さっぽろ](https://drupalsapporo.net)謹製の Drupal 実習用 LAMP スタック（Vagrant box）です。
+*ffdsm* は、[Drupal さっぽろ](https://drupalsapporo.net)謹製の Drupal 実習用 LAMP スタック（VirtualBox 用 Vagrant box）です。
 
 Ubuntu 20.04 LTS（[bento/ubuntu-20.04](https://app.vagrantup.com/bento/boxes/ubuntu-20.04)）をベースに次の変更を加えています：
 
