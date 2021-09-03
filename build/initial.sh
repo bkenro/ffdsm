@@ -79,3 +79,5 @@ systemctl start mailhog.service
 
 # Misc
 apt-get install zip -y
+apt-get install docker.io -y
+apt-get install docker-compose -y
