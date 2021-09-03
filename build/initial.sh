@@ -81,3 +81,14 @@ systemctl start mailhog.service
 apt-get install zip -y
 apt-get install docker.io -y
 apt-get install docker-compose -y
+
+# clearing package-cache, compaction
+rm /root/.bash_history
+apt-get autoremove
+apt-get clean
+rm -f /var/log/*
+rm -f /var/log/*/*
+rm -fr /tmp/*
+dd if=/dev/zero of=/0 bs=4k
+rm -f /0
+history -c
