@@ -14,6 +14,7 @@ Ubuntu 20.04 LTS（[bento/ubuntu-20.04](https://app.vagrantup.com/bento/boxes/ub
 	- Composer
 	- Drush 8
 	- MailHog / mhsendmail
+	- docker、docker-compose
 	- その他
 
 環境構築用のシェルスクリプト（`initial.sh`）と Vagrantfile を build サブフォルダに収めています。変更内容の詳細はそちらをご覧ください。
