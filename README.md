@@ -21,7 +21,7 @@ Ubuntu 20.04 LTS（[bento/ubuntu-20.04](https://app.vagrantup.com/bento/boxes/ub
 
 作成した box のパッケージファイルは、Vagrant Cloud に [bkenro/ffdsm](https://app.vagrantup.com/bkenro/boxes/ffdsm) という名前でアップロードしています。Vagrantfile で `config.vm.box = "bkenro/ffdsm"` と指定してお使いください。このプロジェクト直下にサンプルの Vagrantfile とマウント先の `www` フォルダを収めています。
 
-なお、ベースとして使用した benro/ubuntu-20.04 ボックスのバージョンや、当方で動作確認した VirtualBox のバージョンについては、[bkenro/ffdsm](https://app.vagrantup.com/bkenro/boxes/ffdsm) のバージョンに記載のコメントを参照してください。
+なお、ベースとして使用した bento/ubuntu-20.04 ボックスのバージョンや、当方で動作確認した VirtualBox のバージョンについては、[bkenro/ffdsm](https://app.vagrantup.com/bkenro/boxes/ffdsm) の各バージョンに記載のコメントを参照してください。
 
 ※名前について  
 Ubuntu 20.04 LTS（**F**ocal **F**ossa）ベースの、**D**rupal **S**apporo **M**eetup 用に作った環境ということで、*ffdsm* としました。
