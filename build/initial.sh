@@ -24,6 +24,7 @@ EOS
 # Apache2 web server
 apt-get install apache2 -y
 systemctl enable apache2
+a2enmod rewrite
 systemctl start apache2
 usermod -aG vagrant www-data
 echo "<VirtualHost *:80>
