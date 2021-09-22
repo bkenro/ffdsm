@@ -1,3 +1,5 @@
 /.vagrant/
 /vb/
+/build/.vagrant/
+/build/vb/
 /build/package.box
