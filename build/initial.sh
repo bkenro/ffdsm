@@ -47,9 +47,17 @@ sed -i -e "s|memory_limit = 128M|memory_limit = 256M|" /etc/php/7.4/apache2/php.
 sed -i -e "s|upload_max_filesize = 2M|upload_max_filesize = 12M|" /etc/php/7.4/apache2/php.ini
 
 # Composer 
+EXPECTED_CHECKSUM="$(php -r 'copy("https://composer.github.io/installer.sig", "php://stdout");')"
 php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
-php composer-setup.php
-php -r "unlink('composer-setup.php');"
+ACTUAL_CHECKSUM="$(php -r "echo hash_file('sha384', 'composer-setup.php');")"
+if [ "$EXPECTED_CHECKSUM" != "$ACTUAL_CHECKSUM" ]
+then
+    >&2 echo 'ERROR: Invalid installer checksum'
+    rm composer-setup.php
+    exit 1
+fi
+php composer-setup.php --quiet
+rm composer-setup.php
 mv composer.phar /usr/local/bin/composer
 
 # Drush 8
