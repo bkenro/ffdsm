@@ -24,4 +24,4 @@ Ubuntu 20.04 LTS（[bento/ubuntu-20.04](https://app.vagrantup.com/bento/boxes/ub
 なお、ベースとして使用した bento/ubuntu-20.04 ボックスのバージョンや、当方で動作確認した VirtualBox のバージョンについては、[bkenro/ffdsm](https://app.vagrantup.com/bkenro/boxes/ffdsm) の各バージョンに記載のコメントを参照してください。
 
 ※名前について  
-Ubuntu 20.04 LTS（**F**ocal **F**ossa）ベースの、**D**rupal **S**apporo **M**eetup 用に作った環境ということで、*ffdsm* としました。
+Ubuntu 20.04 LTS（**F**ocal **F**ossa）ベースの、**D**rupal **S**apporo **M**eetup 用に作った環境ということで、*ffdsm* としました。読み方は「ふづむ」です。
