@@ -1,5 +1,7 @@
 # ffdsm
 
+## 概要
+
 *ffdsm* は、[Drupal さっぽろ](https://drupalsapporo.net)謹製の Drupal 実習用 LAMP スタック（VirtualBox 用 Vagrant box）です。
 
 Ubuntu 20.04 LTS（[bento/ubuntu-20.04](https://app.vagrantup.com/bento/boxes/ubuntu-20.04)）をベースに次の変更を加えています：
@@ -25,3 +27,9 @@ Ubuntu 20.04 LTS（[bento/ubuntu-20.04](https://app.vagrantup.com/bento/boxes/ub
 
 ※名前について  
 Ubuntu 20.04 LTS（**F**ocal **F**ossa）ベースの、**D**rupal **S**apporo **M**eetup 用に作った環境ということで、*ffdsm* としました。読み方は「ふづむ」です。
+
+## 使い方
+
+実際の使用例は、こちらの動画をご覧ください。
+
+[![](https://img.youtube.com/vi/2pllnb6cyCw/0.jpg)](https://www.youtube.com/watch?v=2pllnb6cyCw)
