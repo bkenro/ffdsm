@@ -33,3 +33,5 @@ Ubuntu 20.04 LTS（**F**ocal **F**ossa）ベースの、**D**rupal **S**apporo *
 実際の使用例は、こちらの動画をご覧ください。
 
 [![](https://img.youtube.com/vi/2pllnb6cyCw/0.jpg)](https://www.youtube.com/watch?v=2pllnb6cyCw)
+
+なお、Windows 用のショートカットは、setup.ps1 ファイルを PowerShell で実行（右クリックして [PowerShell で実行] をクリック）すると、実際の展開場所に合わせて作り直すことができます。
