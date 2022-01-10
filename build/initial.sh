@@ -74,7 +74,7 @@ rm composer-setup.php
 mv composer.phar /usr/local/bin/composer
 
 # Drush 8
-wget https://github.com/drush-ops/drush/releases/download/8.4.8/drush.phar
+wget https://github.com/drush-ops/drush/releases/download/8.4.10/drush.phar
 chmod +x drush.phar
 mv drush.phar /usr/local/bin/drush
 
