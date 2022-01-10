@@ -84,7 +84,7 @@ go get github.com/mailhog/MailHog
 go get github.com/mailhog/mhsendmail
 cp ~/go/bin/MailHog /usr/local/sbin/
 cp ~/go/bin/mhsendmail /usr/local/sbin/
-sed -i -e "s|;sendmail_path =|sendmail_path = /usr/local/sbin/mhsendmail|" /etc/php/7.4/apache2/php.ini
+sed -i -e "s|;sendmail_path =|sendmail_path = /usr/local/sbin/mhsendmail|" /etc/php/8.0/apache2/php.ini
 echo "[Unit]
 Description = MailHog
  
