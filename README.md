@@ -6,7 +6,7 @@
 
 Ubuntu 20.04 LTS（[bento/ubuntu-20.04](https://app.vagrantup.com/bento/boxes/ubuntu-20.04)）をベースに次の変更を加えています：
 
-- パッケージのダウンロード元を富山大学のミラーに変更
+- パッケージの取得先に http://mirrors.ubuntu.com/mirrors.txt を使用
 - apt によるカーネル更新を抑止
 - タイムゾーンを Asia/Tokyo に変更
 - Drupal の実習で使用するソフトウェアを導入

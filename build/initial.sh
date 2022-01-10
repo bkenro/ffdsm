@@ -4,9 +4,9 @@
 # (should be run as superuser)
 
 # basic configuration
-sed -i.org -e 's|archive.ubuntu.com|ubuntutym.u-toyama.ac.jp|g' /etc/apt/sources.list
-apt-mark hold linux-generic linux-image-generic linux-headers-generic
-apt-get update && ap-get upgrade -y
+sed -i.bak -r 's!(deb|deb-src) \S+!\1 mirror://mirrors.ubuntu.com/mirrors.txt!' /etc/apt/sources.list
+apt-mark hold `uname -r`
+apt-get update && apt-get upgrade -y
 timedatectl set-timezone Asia/Tokyo
 
 # MariaDB, security enhancemnet, adding interactive admin with user/pass 'dba'
