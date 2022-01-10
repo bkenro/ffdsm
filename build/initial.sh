@@ -42,9 +42,22 @@ echo "<VirtualHost *:80>
 " | tee /etc/apache2/sites-available/example.conf
 
 # PHP and configuration
-apt-get install -y php php-cli php-mysql php-pdo php-xml php-gd php-json php-zip php-curl php-mbstring php-pear php-apcu php-pdo-sqlite php-ssh2 php-xdebug
-sed -i -e "s|memory_limit = 128M|memory_limit = 256M|" /etc/php/7.4/apache2/php.ini
-sed -i -e "s|upload_max_filesize = 2M|upload_max_filesize = 12M|" /etc/php/7.4/apache2/php.ini
+sudo add-apt-repository ppa:ondrej/php -y
+sudo apt-get update
+sudo apt-get install php8.0 -y
+sudo apt-get install php8.0-common -y
+sudo apt-get install php8.0-cli -y
+sudo apt-get install php8.0-mysql -y
+sudo apt-get install php8.0-xml -y
+sudo apt-get install php8.0-gd -y
+sudo apt-get install php8.0-zip -y
+sudo apt-get install php8.0-curl -y
+sudo apt-get install php8.0-mbstring -y
+sudo apt-get install php8.0-pdo-sqlite -y
+sudo apt-get install php8.0-ssh2 -y
+sudo apt-get install php8.0-xdebug -y
+sed -i -e "s|memory_limit = 128M|memory_limit = 256M|" /etc/php/8.0/apache2/php.ini
+sed -i -e "s|upload_max_filesize = 2M|upload_max_filesize = 12M|" /etc/php/8.0/apache2/php.ini
 
 # Composer 
 EXPECTED_CHECKSUM="$(php -r 'copy("https://composer.github.io/installer.sig", "php://stdout");')"
