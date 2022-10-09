@@ -44,20 +44,18 @@ echo "<VirtualHost *:80>
 # PHP and configuration
 sudo add-apt-repository ppa:ondrej/php -y
 sudo apt-get update
-sudo apt-get install php8.0 -y
-sudo apt-get install php8.0-common -y
-sudo apt-get install php8.0-cli -y
-sudo apt-get install php8.0-mysql -y
-sudo apt-get install php8.0-xml -y
-sudo apt-get install php8.0-gd -y
-sudo apt-get install php8.0-zip -y
-sudo apt-get install php8.0-curl -y
-sudo apt-get install php8.0-mbstring -y
-sudo apt-get install php8.0-pdo-sqlite -y
-sudo apt-get install php8.0-ssh2 -y
-sudo apt-get install php8.0-xdebug -y
-sed -i -e "s|memory_limit = 128M|memory_limit = 256M|" /etc/php/8.0/apache2/php.ini
-sed -i -e "s|upload_max_filesize = 2M|upload_max_filesize = 12M|" /etc/php/8.0/apache2/php.ini
+sudo apt-get install php8.1 -y
+sudo apt-get install php8.1-mysql -y
+sudo apt-get install php8.1-xml -y
+sudo apt-get install php8.1-gd -y
+sudo apt-get install php8.1-zip -y
+sudo apt-get install php8.1-curl -y
+sudo apt-get install php8.1-mbstring -y
+sudo apt-get install php8.1-pdo-sqlite -y
+sudo apt-get install php8.1-ssh2 -y
+sudo apt-get install php8.1-xdebug -y
+sed -i -e "s|memory_limit = 128M|memory_limit = 256M|" /etc/php/8.1/apache2/php.ini
+sed -i -e "s|upload_max_filesize = 2M|upload_max_filesize = 12M|" /etc/php/8.1/apache2/php.ini
 
 # Composer 
 EXPECTED_CHECKSUM="$(php -r 'copy("https://composer.github.io/installer.sig", "php://stdout");')"
@@ -84,7 +82,7 @@ go get github.com/mailhog/MailHog
 go get github.com/mailhog/mhsendmail
 cp ~/go/bin/MailHog /usr/local/sbin/
 cp ~/go/bin/mhsendmail /usr/local/sbin/
-sed -i -e "s|;sendmail_path =|sendmail_path = /usr/local/sbin/mhsendmail|" /etc/php/8.0/apache2/php.ini
+sed -i -e "s|;sendmail_path =|sendmail_path = /usr/local/sbin/mhsendmail|" /etc/php/8.1/apache2/php.ini
 echo "[Unit]
 Description = MailHog
  
