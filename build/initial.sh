@@ -104,7 +104,7 @@ apt-get install zip -y
 apt-get install docker.io -y
 apt-get install docker-compose -y
 apt-get install imagemagick -y
-sudo sed -i -e 's#<policy domain="coder" rights="none" pattern="PDF" />#<policy domain="coder" rights="read | write" pattern="PDF" />#' /etc/ImageMagick-6/policy.xml
+sed -i -e 's#<policy domain="coder" rights="none" pattern="PDF" />#<policy domain="coder" rights="read | write" pattern="PDF" />#' /etc/ImageMagick-6/policy.xml
 
 # clearing package-cache, compaction
 rm /root/.bash_history
