@@ -102,6 +102,7 @@ systemctl start mailhog.service
 apt-get install zip -y
 apt-get install docker.io -y
 apt-get install docker-compose -y
+apt-get install imagemagick -y
 
 # clearing package-cache, compaction
 rm /root/.bash_history
