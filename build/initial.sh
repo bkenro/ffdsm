@@ -40,6 +40,7 @@ echo "<VirtualHost *:80>
 
 </VirtualHost>
 " | tee /etc/apache2/sites-available/example.conf
+echo "umask 0002" >> /etc/apache2/envvars
 
 # PHP and configuration
 sudo add-apt-repository ppa:ondrej/php -y
