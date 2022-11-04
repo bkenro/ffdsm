@@ -43,19 +43,19 @@ echo "<VirtualHost *:80>
 echo "umask 0002" >> /etc/apache2/envvars
 
 # PHP and configuration
-sudo add-apt-repository ppa:ondrej/php -y
-sudo apt-get update
-sudo apt-get install php8.1 -y
-sudo apt-get install php8.1-mysql -y
-sudo apt-get install php8.1-xml -y
-sudo apt-get install php8.1-gd -y
-sudo apt-get install php8.1-zip -y
-sudo apt-get install php8.1-curl -y
-sudo apt-get install php8.1-mbstring -y
-sudo apt-get install php8.1-pdo-sqlite -y
-sudo apt-get install php8.1-ssh2 -y
-sudo apt-get install php8.1-xdebug -y
-sudo apt-get install php8.1-bcmath -y
+add-apt-repository ppa:ondrej/php -y
+apt-get update
+apt-get install php8.1 -y
+apt-get install php8.1-mysql -y
+apt-get install php8.1-xml -y
+apt-get install php8.1-gd -y
+apt-get install php8.1-zip -y
+apt-get install php8.1-curl -y
+apt-get install php8.1-mbstring -y
+apt-get install php8.1-pdo-sqlite -y
+apt-get install php8.1-ssh2 -y
+apt-get install php8.1-xdebug -y
+apt-get install php8.1-bcmath -y
 sed -i -e "s|memory_limit = 128M|memory_limit = 256M|" /etc/php/8.1/apache2/php.ini
 sed -i -e "s|upload_max_filesize = 2M|upload_max_filesize = 12M|" /etc/php/8.1/apache2/php.ini
 
