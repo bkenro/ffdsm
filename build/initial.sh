@@ -56,6 +56,7 @@ apt-get install php8.1-pdo-sqlite -y
 apt-get install php8.1-ssh2 -y
 apt-get install php8.1-xdebug -y
 apt-get install php8.1-bcmath -y
+apt-get install php8.1-apcu -y
 sed -i -e "s|memory_limit = 128M|memory_limit = 256M|" /etc/php/8.1/apache2/php.ini
 sed -i -e "s|upload_max_filesize = 2M|upload_max_filesize = 12M|" /etc/php/8.1/apache2/php.ini
 
