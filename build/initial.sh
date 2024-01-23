@@ -60,7 +60,7 @@ apt-get install php8.1-apcu -y
 sed -i -e "s|memory_limit = 128M|memory_limit = 256M|" /etc/php/8.1/apache2/php.ini
 sed -i -e "s|upload_max_filesize = 2M|upload_max_filesize = 12M|" /etc/php/8.1/apache2/php.ini
 
-# Composer 
+# Composer
 EXPECTED_CHECKSUM="$(php -r 'copy("https://composer.github.io/installer.sig", "php://stdout");')"
 php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
 ACTUAL_CHECKSUM="$(php -r "echo hash_file('sha384', 'composer-setup.php');")"
@@ -88,12 +88,12 @@ cp ~/go/bin/mhsendmail /usr/local/sbin/
 sed -i -e "s|;sendmail_path =|sendmail_path = /usr/local/sbin/mhsendmail|" /etc/php/8.1/apache2/php.ini
 echo "[Unit]
 Description = MailHog
- 
+
 [Service]
 ExecStart = /usr/local/sbin/MailHog > /dev/null 2>&1 &
 Restart = always
 Type = simple
- 
+
 [Install]
 WantedBy = multi-user.target
 " | tee /etc/systemd/system/mailhog.service
