@@ -31,8 +31,8 @@ echo "<VirtualHost *:80>
   DocumentRoot /var/www/example
   ServerName example.internal
 
-  ErrorLog ${APACHE_LOG_DIR}/error.log
-  CustomLog ${APACHE_LOG_DIR}/access.log combined
+  ErrorLog \${APACHE_LOG_DIR}/error.log
+  CustomLog \${APACHE_LOG_DIR}/access.log combined
 
   <Directory \"/var/www\">
     AllowOverride All
