@@ -31,8 +31,8 @@ echo "<VirtualHost *:80>
   DocumentRoot /var/www/example
   ServerName example.internal
 
-  ErrorLog ${APACHE_LOG_DIR}/error.log
-  CustomLog ${APACHE_LOG_DIR}/access.log combined
+  ErrorLog \${APACHE_LOG_DIR}/error.log
+  CustomLog \${APACHE_LOG_DIR}/access.log combined
 
   <Directory \"/var/www\">
     AllowOverride All
@@ -45,22 +45,32 @@ echo "umask 0002" >> /etc/apache2/envvars
 # PHP and configuration
 add-apt-repository ppa:ondrej/php -y
 apt-get update
-apt-get install php8.1 -y
-apt-get install php8.1-mysql -y
-apt-get install php8.1-xml -y
-apt-get install php8.1-gd -y
-apt-get install php8.1-zip -y
-apt-get install php8.1-curl -y
-apt-get install php8.1-mbstring -y
-apt-get install php8.1-pdo-sqlite -y
-apt-get install php8.1-ssh2 -y
-apt-get install php8.1-xdebug -y
-apt-get install php8.1-bcmath -y
-apt-get install php8.1-apcu -y
-sed -i -e "s|memory_limit = 128M|memory_limit = 256M|" /etc/php/8.1/apache2/php.ini
-sed -i -e "s|upload_max_filesize = 2M|upload_max_filesize = 12M|" /etc/php/8.1/apache2/php.ini
+apt-get install php8.2 -y
+apt-get install php8.2-mysql -y
+apt-get install php8.2-xml -y
+apt-get install php8.2-gd -y
+apt-get install php8.2-zip -y
+apt-get install php8.2-curl -y
+apt-get install php8.2-mbstring -y
+apt-get install php8.2-pdo-sqlite -y
+apt-get install php8.2-ssh2 -y
+apt-get install php8.2-xdebug -y
+apt-get install php8.2-bcmath -y
+apt-get install php8.2-apcu -y
+sed -i -e "s|memory_limit = 128M|memory_limit = 256M|" /etc/php/8.2/apache2/php.ini
+sed -i -e "s|upload_max_filesize = 2M|upload_max_filesize = 12M|" /etc/php/8.2/apache2/php.ini
 
-# Composer 
+# https://www.drupal.org/project/drupal/issues/3405976#comment-15408615
+echo "
+[xdebug]
+xdebug.mode=off
+" >> /etc/php/8.2/apache2/php.ini
+echo "
+[xdebug]
+xdebug.mode=off
+" >> /etc/php/8.2/cli/php.ini
+
+# Composer
 EXPECTED_CHECKSUM="$(php -r 'copy("https://composer.github.io/installer.sig", "php://stdout");')"
 php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
 ACTUAL_CHECKSUM="$(php -r "echo hash_file('sha384', 'composer-setup.php');")"
@@ -75,7 +85,7 @@ rm composer-setup.php
 mv composer.phar /usr/local/bin/composer
 
 # Drush 8
-wget https://github.com/drush-ops/drush/releases/download/8.4.10/drush.phar
+wget https://github.com/drush-ops/drush/releases/download/8.4.12/drush.phar
 chmod +x drush.phar
 mv drush.phar /usr/local/bin/drush
 
@@ -85,15 +95,15 @@ go get github.com/mailhog/MailHog
 go get github.com/mailhog/mhsendmail
 cp ~/go/bin/MailHog /usr/local/sbin/
 cp ~/go/bin/mhsendmail /usr/local/sbin/
-sed -i -e "s|;sendmail_path =|sendmail_path = /usr/local/sbin/mhsendmail|" /etc/php/8.1/apache2/php.ini
+sed -i -e "s|;sendmail_path =|sendmail_path = /usr/local/sbin/mhsendmail|" /etc/php/8.2/apache2/php.ini
 echo "[Unit]
 Description = MailHog
- 
+
 [Service]
 ExecStart = /usr/local/sbin/MailHog > /dev/null 2>&1 &
 Restart = always
 Type = simple
- 
+
 [Install]
 WantedBy = multi-user.target
 " | tee /etc/systemd/system/mailhog.service
