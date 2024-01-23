@@ -60,6 +60,16 @@ apt-get install php8.2-apcu -y
 sed -i -e "s|memory_limit = 128M|memory_limit = 256M|" /etc/php/8.2/apache2/php.ini
 sed -i -e "s|upload_max_filesize = 2M|upload_max_filesize = 12M|" /etc/php/8.2/apache2/php.ini
 
+# https://www.drupal.org/project/drupal/issues/3405976#comment-15408615
+echo "
+[xdebug]
+xdebug.mode=off
+" >> /etc/php/8.2/apache2/php.ini
+echo "
+[xdebug]
+xdebug.mode=off
+" >> /etc/php/8.2/cli/php.ini
+
 # Composer
 EXPECTED_CHECKSUM="$(php -r 'copy("https://composer.github.io/installer.sig", "php://stdout");')"
 php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
