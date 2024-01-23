@@ -45,20 +45,20 @@ echo "umask 0002" >> /etc/apache2/envvars
 # PHP and configuration
 add-apt-repository ppa:ondrej/php -y
 apt-get update
-apt-get install php8.1 -y
-apt-get install php8.1-mysql -y
-apt-get install php8.1-xml -y
-apt-get install php8.1-gd -y
-apt-get install php8.1-zip -y
-apt-get install php8.1-curl -y
-apt-get install php8.1-mbstring -y
-apt-get install php8.1-pdo-sqlite -y
-apt-get install php8.1-ssh2 -y
-apt-get install php8.1-xdebug -y
-apt-get install php8.1-bcmath -y
-apt-get install php8.1-apcu -y
-sed -i -e "s|memory_limit = 128M|memory_limit = 256M|" /etc/php/8.1/apache2/php.ini
-sed -i -e "s|upload_max_filesize = 2M|upload_max_filesize = 12M|" /etc/php/8.1/apache2/php.ini
+apt-get install php8.2 -y
+apt-get install php8.2-mysql -y
+apt-get install php8.2-xml -y
+apt-get install php8.2-gd -y
+apt-get install php8.2-zip -y
+apt-get install php8.2-curl -y
+apt-get install php8.2-mbstring -y
+apt-get install php8.2-pdo-sqlite -y
+apt-get install php8.2-ssh2 -y
+apt-get install php8.2-xdebug -y
+apt-get install php8.2-bcmath -y
+apt-get install php8.2-apcu -y
+sed -i -e "s|memory_limit = 128M|memory_limit = 256M|" /etc/php/8.2/apache2/php.ini
+sed -i -e "s|upload_max_filesize = 2M|upload_max_filesize = 12M|" /etc/php/8.2/apache2/php.ini
 
 # Composer
 EXPECTED_CHECKSUM="$(php -r 'copy("https://composer.github.io/installer.sig", "php://stdout");')"
@@ -85,7 +85,7 @@ go get github.com/mailhog/MailHog
 go get github.com/mailhog/mhsendmail
 cp ~/go/bin/MailHog /usr/local/sbin/
 cp ~/go/bin/mhsendmail /usr/local/sbin/
-sed -i -e "s|;sendmail_path =|sendmail_path = /usr/local/sbin/mhsendmail|" /etc/php/8.1/apache2/php.ini
+sed -i -e "s|;sendmail_path =|sendmail_path = /usr/local/sbin/mhsendmail|" /etc/php/8.2/apache2/php.ini
 echo "[Unit]
 Description = MailHog
 
