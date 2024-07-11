@@ -89,6 +89,9 @@ wget https://github.com/drush-ops/drush/releases/download/8.4.12/drush.phar
 chmod +x drush.phar
 mv drush.phar /usr/local/bin/drush
 
+# Drush PATH
+echo 'PATH="./vendor/bin:$PATH"' >> /home/vagrant/.profile
+
 # MailHog and mhsendmail
 apt-get -y install golang-go
 go get github.com/mailhog/MailHog
