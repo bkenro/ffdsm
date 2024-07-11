@@ -45,30 +45,30 @@ echo "umask 0002" >> /etc/apache2/envvars
 # PHP and configuration
 add-apt-repository ppa:ondrej/php -y
 apt-get update
-apt-get install php8.2 -y
-apt-get install php8.2-mysql -y
-apt-get install php8.2-xml -y
-apt-get install php8.2-gd -y
-apt-get install php8.2-zip -y
-apt-get install php8.2-curl -y
-apt-get install php8.2-mbstring -y
-apt-get install php8.2-pdo-sqlite -y
-apt-get install php8.2-ssh2 -y
-apt-get install php8.2-xdebug -y
-apt-get install php8.2-bcmath -y
-apt-get install php8.2-apcu -y
-sed -i -e "s|memory_limit = 128M|memory_limit = 256M|" /etc/php/8.2/apache2/php.ini
-sed -i -e "s|upload_max_filesize = 2M|upload_max_filesize = 12M|" /etc/php/8.2/apache2/php.ini
+apt-get install php8.3 -y
+apt-get install php8.3-mysql -y
+apt-get install php8.3-xml -y
+apt-get install php8.3-gd -y
+apt-get install php8.3-zip -y
+apt-get install php8.3-curl -y
+apt-get install php8.3-mbstring -y
+apt-get install php8.3-pdo-sqlite -y
+apt-get install php8.3-ssh2 -y
+apt-get install php8.3-xdebug -y
+apt-get install php8.3-bcmath -y
+apt-get install php8.3-apcu -y
+sed -i -e "s|memory_limit = 128M|memory_limit = 256M|" /etc/php/8.3/apache2/php.ini
+sed -i -e "s|upload_max_filesize = 2M|upload_max_filesize = 12M|" /etc/php/8.3/apache2/php.ini
 
 # https://www.drupal.org/project/drupal/issues/3405976#comment-15408615
 echo "
 [xdebug]
 xdebug.mode=off
-" >> /etc/php/8.2/apache2/php.ini
+" >> /etc/php/8.3/apache2/php.ini
 echo "
 [xdebug]
 xdebug.mode=off
-" >> /etc/php/8.2/cli/php.ini
+" >> /etc/php/8.3/cli/php.ini
 
 # Composer
 EXPECTED_CHECKSUM="$(php -r 'copy("https://composer.github.io/installer.sig", "php://stdout");')"
@@ -95,7 +95,7 @@ go get github.com/mailhog/MailHog
 go get github.com/mailhog/mhsendmail
 cp ~/go/bin/MailHog /usr/local/sbin/
 cp ~/go/bin/mhsendmail /usr/local/sbin/
-sed -i -e "s|;sendmail_path =|sendmail_path = /usr/local/sbin/mhsendmail|" /etc/php/8.2/apache2/php.ini
+sed -i -e "s|;sendmail_path =|sendmail_path = /usr/local/sbin/mhsendmail|" /etc/php/8.3/apache2/php.ini
 echo "[Unit]
 Description = MailHog
 
