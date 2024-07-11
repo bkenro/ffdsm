@@ -134,6 +134,22 @@ apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docke
 # Allow vagrant user to execute docker commands
 usermod -aG docker vagrant
 
+# DDEV
+# Add DDEV's GPG key to the keyring
+apt-get update && apt-get install -y curl
+install -m 0755 -d /etc/apt/keyrings
+curl -fsSL https://pkg.ddev.com/apt/gpg.key | gpg --dearmor | \
+tee /etc/apt/keyrings/ddev.gpg > /dev/null
+chmod a+r /etc/apt/keyrings/ddev.gpg
+# Add DDEV releases to the package repository
+echo "deb [signed-by=/etc/apt/keyrings/ddev.gpg] https://pkg.ddev.com/apt/ * *" | \
+tee /etc/apt/sources.list.d/ddev.list >/dev/null
+# Update package information and install DDEV
+sh -c 'echo ""'
+apt-get update && apt-get install -y ddev
+# One-time initialization of mkcert
+mkcert -install
+
 # Misc
 apt-get install zip -y
 apt-get install imagemagick -y
