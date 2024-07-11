@@ -92,26 +92,31 @@ mv drush.phar /usr/local/bin/drush
 # Drush PATH
 echo 'PATH="./vendor/bin:$PATH"' >> /home/vagrant/.profile
 
-# MailHog and mhsendmail
-apt-get -y install golang-go
-go get github.com/mailhog/MailHog
-go get github.com/mailhog/mhsendmail
-cp ~/go/bin/MailHog /usr/local/sbin/
-cp ~/go/bin/mhsendmail /usr/local/sbin/
-sed -i -e "s|;sendmail_path =|sendmail_path = /usr/local/sbin/mhsendmail|" /etc/php/8.3/apache2/php.ini
+# Mailpit and mhsendmail
+groupadd -r mailpit
+useradd -g mailpit -s /usr/sbin/nologin -r mailpit
+mkdir -p /var/lib/mailpit
+chown mailpit:mailpit /var/lib/mailpit
+bash < <(curl -sL https://raw.githubusercontent.com/axllent/mailpit/develop/install.sh)
 echo "[Unit]
-Description = MailHog
+Description=Mailpit server
 
 [Service]
-ExecStart = /usr/local/sbin/MailHog > /dev/null 2>&1 &
-Restart = always
-Type = simple
+ExecStart=/usr/local/bin/mailpit -d /var/lib/mailpit/mailpit.db
+Restart=always
+# Restart service after 10 seconds service crashes
+RestartSec=10
+SyslogIdentifier=mailpit
+User=mailpit
+Group=mailpit
 
 [Install]
-WantedBy = multi-user.target
-" | tee /etc/systemd/system/mailhog.service
-systemctl enable mailhog.service
-systemctl start mailhog.service
+WantedBy=multi-user.target
+" | tee /etc/systemd/system/mailpit.service
+systemctl enable mailpit.service
+systemctl start mailpit.service
+sed -i -e "s|;sendmail_path =|sendmail_path = /usr/local/bin/mailpit sendmail|" /etc/php/8.3/apache2/php.ini
+
 
 # Misc
 apt-get install zip -y
