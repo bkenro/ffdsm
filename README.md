@@ -16,7 +16,7 @@ Ubuntu 24.04 LTS（[bento/ubuntu-24.04](https://app.vagrantup.com/bento/boxes/ub
 	- Composer
 	- Drush 8
 	- Mailpit
-	- docker、docker-compose
+	- docker-ce、DDEV
 	- その他
 
 環境構築用のシェルスクリプト（`initial.sh`）と Vagrantfile を build サブフォルダに収めています。変更内容の詳細はそちらをご覧ください。
