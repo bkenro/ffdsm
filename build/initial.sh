@@ -12,7 +12,7 @@ timedatectl set-timezone Asia/Tokyo
 # MariaDB, security enhancemnet, adding interactive admin with user/pass 'dba'
 apt-get install mariadb-server -y
 mysql <<EOS
-UPDATE mysql.user SET Password=PASSWORD('root') WHERE User='root';
+ALTER USER root@localhost IDENTIFIED BY 'root';
 DELETE FROM mysql.user WHERE User='';
 DELETE FROM mysql.user WHERE User='root' AND Host NOT IN ('localhost', '127.0.0.1', '::1');
 DROP DATABASE IF EXISTS test;
@@ -45,30 +45,30 @@ echo "umask 0002" >> /etc/apache2/envvars
 # PHP and configuration
 add-apt-repository ppa:ondrej/php -y
 apt-get update
-apt-get install php8.2 -y
-apt-get install php8.2-mysql -y
-apt-get install php8.2-xml -y
-apt-get install php8.2-gd -y
-apt-get install php8.2-zip -y
-apt-get install php8.2-curl -y
-apt-get install php8.2-mbstring -y
-apt-get install php8.2-pdo-sqlite -y
-apt-get install php8.2-ssh2 -y
-apt-get install php8.2-xdebug -y
-apt-get install php8.2-bcmath -y
-apt-get install php8.2-apcu -y
-sed -i -e "s|memory_limit = 128M|memory_limit = 256M|" /etc/php/8.2/apache2/php.ini
-sed -i -e "s|upload_max_filesize = 2M|upload_max_filesize = 12M|" /etc/php/8.2/apache2/php.ini
+apt-get install php8.3 -y
+apt-get install php8.3-mysql -y
+apt-get install php8.3-xml -y
+apt-get install php8.3-gd -y
+apt-get install php8.3-zip -y
+apt-get install php8.3-curl -y
+apt-get install php8.3-mbstring -y
+apt-get install php8.3-pdo-sqlite -y
+apt-get install php8.3-ssh2 -y
+apt-get install php8.3-xdebug -y
+apt-get install php8.3-bcmath -y
+apt-get install php8.3-apcu -y
+sed -i -e "s|memory_limit = 128M|memory_limit = 256M|" /etc/php/8.3/apache2/php.ini
+sed -i -e "s|upload_max_filesize = 2M|upload_max_filesize = 12M|" /etc/php/8.3/apache2/php.ini
 
 # https://www.drupal.org/project/drupal/issues/3405976#comment-15408615
 echo "
 [xdebug]
 xdebug.mode=off
-" >> /etc/php/8.2/apache2/php.ini
+" >> /etc/php/8.3/apache2/php.ini
 echo "
 [xdebug]
 xdebug.mode=off
-" >> /etc/php/8.2/cli/php.ini
+" >> /etc/php/8.3/cli/php.ini
 
 # Composer
 EXPECTED_CHECKSUM="$(php -r 'copy("https://composer.github.io/installer.sig", "php://stdout");')"
@@ -89,31 +89,69 @@ wget https://github.com/drush-ops/drush/releases/download/8.4.12/drush.phar
 chmod +x drush.phar
 mv drush.phar /usr/local/bin/drush
 
-# MailHog and mhsendmail
-apt-get -y install golang-go
-go get github.com/mailhog/MailHog
-go get github.com/mailhog/mhsendmail
-cp ~/go/bin/MailHog /usr/local/sbin/
-cp ~/go/bin/mhsendmail /usr/local/sbin/
-sed -i -e "s|;sendmail_path =|sendmail_path = /usr/local/sbin/mhsendmail|" /etc/php/8.2/apache2/php.ini
+# Drush PATH
+echo 'PATH="./vendor/bin:$PATH"' >> /home/vagrant/.profile
+
+# Mailpit and mhsendmail
+groupadd -r mailpit
+useradd -g mailpit -s /usr/sbin/nologin -r mailpit
+mkdir -p /var/lib/mailpit
+chown mailpit:mailpit /var/lib/mailpit
+bash < <(curl -sL https://raw.githubusercontent.com/axllent/mailpit/develop/install.sh)
 echo "[Unit]
-Description = MailHog
+Description=Mailpit server
 
 [Service]
-ExecStart = /usr/local/sbin/MailHog > /dev/null 2>&1 &
-Restart = always
-Type = simple
+ExecStart=/usr/local/bin/mailpit -d /var/lib/mailpit/mailpit.db
+Restart=always
+# Restart service after 10 seconds service crashes
+RestartSec=10
+SyslogIdentifier=mailpit
+User=mailpit
+Group=mailpit
 
 [Install]
-WantedBy = multi-user.target
-" | tee /etc/systemd/system/mailhog.service
-systemctl enable mailhog.service
-systemctl start mailhog.service
+WantedBy=multi-user.target
+" | tee /etc/systemd/system/mailpit.service
+systemctl enable mailpit.service
+systemctl start mailpit.service
+sed -i -e "s|;sendmail_path =|sendmail_path = /usr/local/bin/mailpit sendmail|" /etc/php/8.3/apache2/php.ini
+
+# Remove docker-io
+for pkg in docker.io docker-doc docker-compose docker-compose-v2 podman-docker containerd runc; do apt-get remove $pkg; done
+# Install docker-ce
+apt-get install ca-certificates curl
+install -m 0755 -d /etc/apt/keyrings
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+chmod a+r /etc/apt/keyrings/docker.asc
+echo \
+  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
+  $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
+  tee /etc/apt/sources.list.d/docker.list > /dev/null
+apt-get update
+apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin -y
+
+# Allow vagrant user to execute docker commands
+usermod -aG docker vagrant
+
+# DDEV
+# Add DDEV's GPG key to the keyring
+apt-get update && apt-get install -y curl
+install -m 0755 -d /etc/apt/keyrings
+curl -fsSL https://pkg.ddev.com/apt/gpg.key | gpg --dearmor | \
+tee /etc/apt/keyrings/ddev.gpg > /dev/null
+chmod a+r /etc/apt/keyrings/ddev.gpg
+# Add DDEV releases to the package repository
+echo "deb [signed-by=/etc/apt/keyrings/ddev.gpg] https://pkg.ddev.com/apt/ * *" | \
+tee /etc/apt/sources.list.d/ddev.list >/dev/null
+# Update package information and install DDEV
+sh -c 'echo ""'
+apt-get update && apt-get install -y ddev
+# One-time initialization of mkcert
+mkcert -install
 
 # Misc
 apt-get install zip -y
-apt-get install docker.io -y
-apt-get install docker-compose -y
 apt-get install imagemagick -y
 sed -i -e 's#<policy domain="coder" rights="none" pattern="PDF" />#<policy domain="coder" rights="read | write" pattern="PDF" />#' /etc/ImageMagick-6/policy.xml
 
