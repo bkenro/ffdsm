@@ -12,7 +12,7 @@ Ubuntu 20.04 LTS（[bento/ubuntu-20.04](https://app.vagrantup.com/bento/boxes/ub
 - Drupal の実習で使用するソフトウェアを導入
 	- MariaDB
 	- Apache2 Web サーバー
-	- PHP 8.2
+	- PHP 8.3
 	- Composer
 	- Drush 8
 	- MailHog / mhsendmail
