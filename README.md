@@ -15,7 +15,7 @@ Ubuntu 24.04 LTS（[bento/ubuntu-24.04](https://app.vagrantup.com/bento/boxes/ub
 	- PHP 8.3
 	- Composer
 	- Drush 8
-	- MailHog / mhsendmail
+	- Mailpit
 	- docker、docker-compose
 	- その他
 
