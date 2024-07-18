@@ -134,7 +134,6 @@ usermod -aG docker vagrant
 
 # DDEV
 # Add DDEV's GPG key to the keyring
-apt-get update && apt-get install -y curl
 install -m 0755 -d /etc/apt/keyrings
 curl -fsSL https://pkg.ddev.com/apt/gpg.key | gpg --dearmor | \
 tee /etc/apt/keyrings/ddev.gpg > /dev/null
