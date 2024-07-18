@@ -4,8 +4,6 @@
 # (should be run as superuser)
 
 # basic configuration
-sed -i.bak -r 's!(deb|deb-src) \S+!\1 mirror://mirrors.ubuntu.com/mirrors.txt!' /etc/apt/sources.list
-apt-mark hold `uname -r`
 apt-get update && apt-get upgrade -y
 timedatectl set-timezone Asia/Tokyo
 
