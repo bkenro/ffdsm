@@ -21,9 +21,9 @@ EOS
 
 # Apache2 web server
 apt-get install apache2 -y
-systemctl enable apache2
+systemctl disable apache2
 a2enmod rewrite
-systemctl start apache2
+#systemctl start apache2
 usermod -aG vagrant www-data
 echo "<VirtualHost *:80>
   DocumentRoot /var/www/example
@@ -111,8 +111,8 @@ Group=mailpit
 [Install]
 WantedBy=multi-user.target
 " | tee /etc/systemd/system/mailpit.service
-systemctl enable mailpit.service
-systemctl start mailpit.service
+#systemctl enable mailpit.service
+#systemctl start mailpit.service
 sed -i -e "s|;sendmail_path =|sendmail_path = /usr/local/bin/mailpit sendmail|" /etc/php/8.3/apache2/php.ini
 
 # Remove docker-io
@@ -146,11 +146,17 @@ sh -c 'echo ""'
 apt-get update && apt-get install -y ddev
 # One-time initialization of mkcert
 mkcert -install
+apt-get install wslu -y
 
 # Misc
 apt-get install zip -y
 apt-get install imagemagick -y
 sed -i -e 's#<policy domain="coder" rights="none" pattern="PDF" />#<policy domain="coder" rights="read | write" pattern="PDF" />#' /etc/ImageMagick-6/policy.xml
+
+# Default login user
+echo "[user]
+default=vagrant
+" >> /etc/wsl.conf
 
 # clearing package-cache, compaction
 rm /root/.bash_history
@@ -159,6 +165,6 @@ apt-get clean
 rm -f /var/log/*
 rm -f /var/log/*/*
 rm -fr /tmp/*
-dd if=/dev/zero of=/0 bs=4k
-rm -f /0
+#dd if=/dev/zero of=/0 bs=4k
+#rm -f /0
 history -c
