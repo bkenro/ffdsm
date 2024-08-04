@@ -19,9 +19,7 @@ Ubuntu 24.04 LTS（[bento/ubuntu-24.04](https://app.vagrantup.com/bento/boxes/ub
 
 環境構築用のシェルスクリプト（`initial.sh`）と Vagrantfile を build サブフォルダに収めています。変更内容の詳細はそちらをご覧ください。
 
-作成した box のパッケージファイルは、Vagrant Cloud に [bkenro/ffdsm](https://app.vagrantup.com/bkenro/boxes/ffdsm) という名前でアップロードしています。Vagrantfile で `config.vm.box = "bkenro/ffdsm"` と指定してお使いください。このプロジェクト直下にサンプルの Vagrantfile とマウント先の `www` フォルダを収めています。
-
-なお、ベースとして使用した bento/ubuntu-24.04 ボックスのバージョンや、当方で動作確認した VirtualBox のバージョンについては、[bkenro/ffdsm](https://app.vagrantup.com/bkenro/boxes/ffdsm) の各バージョンに記載のコメントを参照してください。
+作成した box のパッケージファイルは、Vagrant Public Registry に [bkenro/ffdsm](https://portal.cloud.hashicorp.com/vagrant/discover/bkenro/ffdsm) という名前でアップロードしています。Vagrantfile で `config.vm.box = "bkenro/ffdsm"` と指定してお使いください。サンプルの Vagrantfile とマウント先の `www` フォルダを当リポジトリ直下に収めています。
 
 ※名前について<br>
 初版が Ubuntu 20.04 LTS（**F**ocal **F**ossa）ベースの、**D**rupal **S**apporo **M**eetup 用に作った環境だったことから *ffdsm* としました。読み方は「ふづむ」です。
