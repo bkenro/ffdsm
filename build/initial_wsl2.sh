@@ -25,6 +25,8 @@ systemctl disable apache2
 a2enmod rewrite
 #systemctl start apache2
 usermod -aG vagrant www-data
+usermod -aG www-data vagrant
+chown vagrant:vagrant /var/www
 echo "<VirtualHost *:80>
   DocumentRoot /var/www/example
   ServerName example.internal
@@ -39,6 +41,27 @@ echo "<VirtualHost *:80>
 </VirtualHost>
 " | tee /etc/apache2/sites-available/example.conf
 echo "umask 0002" >> /etc/apache2/envvars
+
+# Sample HTML page
+echo "<"'!'"DOCTYPE html>
+<html>
+  <head>
+    <title>ffdsm</title>
+    <meta charset=\"UTF-8\">
+  </head>
+  <body>
+    <h1>ffdsm</h1>
+    <p>Hi, this is a <em>drupalized</em> LAMP stack for Drupal Sapporo Meetup.</p>
+    <p>Enjoy"'!'"</p>
+    <hr>
+    <address>
+      <a href=\"https://drupalsapporo.net/\">https://drupalsapporo.net</a>
+    </address>
+  </body>
+</html>
+" | tee /var/www/html/index.html
+mkdir /var/www/example
+echo "This is an example." > /var/www/example/index.html
 
 # PHP and configuration
 add-apt-repository ppa:ondrej/php -y
@@ -68,6 +91,11 @@ echo "
 xdebug.mode=off
 " >> /etc/php/8.3/cli/php.ini
 
+# Sample phpinfo script
+echo "<?php
+phpinfo();
+" | tee /var/www/html/info.php
+
 # Composer
 EXPECTED_CHECKSUM="$(php -r 'copy("https://composer.github.io/installer.sig", "php://stdout");')"
 php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
@@ -83,7 +111,7 @@ rm composer-setup.php
 mv composer.phar /usr/local/bin/composer
 
 # Drush 8
-wget https://github.com/drush-ops/drush/releases/download/8.4.12/drush.phar
+wget https://github.com/drush-ops/drush/releases/download/8.5.0/drush.phar
 chmod +x drush.phar
 mv drush.phar /usr/local/bin/drush
 
@@ -157,6 +185,7 @@ sed -i -e 's#<policy domain="coder" rights="none" pattern="PDF" />#<policy domai
 echo "[user]
 default=vagrant
 " >> /etc/wsl.conf
+echo "vagrant ALL=NOPASSWD: ALL" > /etc/sudoers.d/ffdsm
 
 # clearing package-cache, compaction
 rm /root/.bash_history
