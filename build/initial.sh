@@ -42,6 +42,27 @@ echo "<VirtualHost *:80>
 " | tee /etc/apache2/sites-available/example.conf
 echo "umask 0002" >> /etc/apache2/envvars
 
+# Sample HTML page
+echo "<"'!'"DOCTYPE html>
+<html>
+  <head>
+    <title>ffdsm</title>
+    <meta charset=\"UTF-8\">
+  </head>
+  <body>
+    <h1>ffdsm</h1>
+    <p>Hi, this is a <em>drupalized</em> LAMP stack for Drupal Sapporo Meetup.</p>
+    <p>Enjoy"'!'"</p>
+    <hr>
+    <address>
+      <a href=\"https://drupalsapporo.net/\">https://drupalsapporo.net</a>
+    </address>
+  </body>
+</html>
+" | tee /var/www/html/index.html
+mkdir /var/www/example
+echo "This is an example." > /var/www/example/index.html
+
 # PHP and configuration
 add-apt-repository ppa:ondrej/php -y
 apt-get update
@@ -69,6 +90,11 @@ echo "
 [xdebug]
 xdebug.mode=off
 " >> /etc/php/8.3/cli/php.ini
+
+# Sample phpinfo script
+echo "<?php
+phpinfo();
+" | tee /var/www/html/info.php
 
 # Composer
 EXPECTED_CHECKSUM="$(php -r 'copy("https://composer.github.io/installer.sig", "php://stdout");')"
