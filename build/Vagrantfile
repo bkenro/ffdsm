@@ -6,7 +6,5 @@ Vagrant.configure("2") do |config|
     vb.name = "vm-ffbento"
     vb.customize ["modifyvm", :id, "--memory", "2048"]
   end
-  config.vm.synced_folder ".", "/vagrant", disabled: true
-  config.vm.synced_folder "www", "/var/www", type: "virtualbox"
-  config.vm.provision "shell", path: "initial.sh"
+#  config.vm.provision "shell", path: "initial.sh"
 end
