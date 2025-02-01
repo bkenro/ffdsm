@@ -1,6 +1,6 @@
 Vagrant.configure("2") do |config|
   config.vm.box = "bkenro/ffdsm"
-  config.vm.network "private_network", ip: "192.168.12.34"
+  config.vm.network "private_network", ip: "192.168.56.78"
   config.vm.hostname = "ffdsm.internal"
   config.vm.provider "virtualbox" do |vb|
     vb.name = "vm-ffdsm"
