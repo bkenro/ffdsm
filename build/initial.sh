@@ -26,6 +26,7 @@ a2enmod rewrite
 systemctl start apache2
 usermod -aG vagrant www-data
 usermod -aG www-data vagrant
+chown vagrant:vagrant /var/www
 echo "<VirtualHost *:80>
   DocumentRoot /var/www/example
   ServerName example.internal
