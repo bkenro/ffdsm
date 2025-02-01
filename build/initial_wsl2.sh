@@ -157,6 +157,7 @@ sed -i -e 's#<policy domain="coder" rights="none" pattern="PDF" />#<policy domai
 echo "[user]
 default=vagrant
 " >> /etc/wsl.conf
+echo "vagrant ALL=NOPASSWD: ALL" > /etc/sudoers.d/ffdsm
 
 # clearing package-cache, compaction
 rm /root/.bash_history
